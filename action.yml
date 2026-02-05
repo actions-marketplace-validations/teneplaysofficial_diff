@@ -1,0 +1,44 @@
+name: "Diff Sentinel"
+description: "Run codegen or formatting commands and fail CI if uncommitted git diff is detected"
+author: "Sriman"
+
+branding:
+  color: "gray-dark"
+  icon: "shield"
+
+inputs:
+  run:
+    description: "Shell commands to run before checking for git diff (newline-separated)"
+    required: true
+
+  fail-message:
+    description: "Message shown when uncommitted changes are detected"
+    required: false
+    default: "Generated or formatted files are out of date, Please run the required commands locally."
+
+  fail-on-command-error:
+    description: "Fail the action if any command fails"
+    required: false
+    default: "false"
+
+  fail-on-diff:
+    description: "Fail the action if diff is detected"
+    required: false
+    default: "true"
+
+outputs:
+  has_diff:
+    description: "Whether an uncommitted git diff was detected (true/false)"
+
+  changed_files:
+    description: "Newline-separated list of changed files"
+
+  diff_count:
+    description: "Number of changed files"
+
+  command_failures:
+    description: "Number of failed commands"
+
+runs:
+  using: "node24"
+  main: "dist/index.js"

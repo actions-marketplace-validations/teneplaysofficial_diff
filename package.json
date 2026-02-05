@@ -1,0 +1,31 @@
+{
+  "name": "diff",
+  "displayName": "Diff Sentinel",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Fail CI when generated or formatted files are not committed",
+  "packageManager": "pnpm@10.28.2",
+  "type": "module",
+  "scripts": {
+    "prepare": "husky",
+    "release": "bash release.sh",
+    "build": "esbuild src/index.js --bundle --minify --platform=node --format=cjs --outfile=dist/index.js",
+    "fix": "biome check --write",
+    "lint": "biome check"
+  },
+  "lint-staged": {
+    "*.{ts,js,json}": [
+      "pnpm run fix --no-errors-on-unmatched"
+    ]
+  },
+  "dependencies": {
+    "@actions/core": "^3.0.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.3.14",
+    "@types/node": "^25.2.0",
+    "esbuild": "^0.27.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7"
+  }
+}
