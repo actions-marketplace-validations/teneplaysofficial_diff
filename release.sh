@@ -19,11 +19,12 @@ major_minor_version="$major.$minor"
 
 git add .
 git commit -m "chore: release v$version" || echo "No changes to commit"
-git tag "$version" || echo "Tag $version already exists"
+git tag v"$version" || echo "Tag $version already exists"
 
 if [[ "$isPR" -eq 0 ]]; then
-    git tag -f "$major_version"
-    git tag -f "$major_minor_version"
+    git tag -f v"$major_version"
+    git tag -f v"$major_minor_version"
 fi
 
-git push --follow-tags
+git push
+git push origin --tags
